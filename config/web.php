@@ -12,16 +12,30 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+
         'view' => [
-            /**
-             * @link https://github.com/dmstr/yii2-adminlte-asset
-             */
             'theme' => [
                 'pathMap' => [
-                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
+                     // '@dektrium/user/views' => '@vendor/cinghie/yii2-user-extended/views',
+                    '@dektrium/user/views/settings/show' => '@app/views/settings/show',
+                    '@dektrium/user/views/settings' => '@app/views/settings',
+
+                   // '@dektrium/user/settings/show' => '@app/views/settings/account',
+
+//                    '@dektrium/user/views' => '@app/views/',
+//                    '@cinghie/userextended/views/admin' => '@app/views/userextended/admin',
+//                    '@dektrium/rbac/views/permission' => '@vendor/cinghie/yii2-user-extended/views/permission',
+//                    '@dektrium/rbac/views/role' => '@vendor/cinghie/yii2-user-extended/views/role',
+//                    '@dektrium/rbac/views/rule' => '@vendor/cinghie/yii2-user-extended/views/rule',
+//                    '@dektrium/user/views/admin' => '@vendor/cinghie/yii2-user-extended/views/admin',
+//
+//                    '@dektrium/user/views/role' => '@vendor/cinghie/yii2-user-extended/views/role',
+//                    '@dektrium/user/views/security' => '@vendor/cinghie/yii2-user-extended/views/adminlte/security',
+//                    '@dektrium/user/views/settings' => '@vendor/cinghie/yii2-user-extended/views/settings',
                 ],
             ],
         ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'YFij0j9qkun9TVTQCzCpX5X20dGrQoqb',
@@ -49,30 +63,75 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+/*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+*/
     ],
     'modules' => [
-        /**
-         * @link https://github.com/dektrium/yii2-user/blob/master/docs/getting-started.md
-         */
+
+        'rbac' => 'dektrium\rbac\RbacWebModule',
+        // Yii2 User
         'user' => [
             'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
-            'confirmWithin' => 21600,
-            'cost' => 12,
-            'admins' => ['admin']
+            // Yii2 User Controllers Overrides
+            'controllerMap' => [
+                'admin' => 'app\controllers\user\AdminController',
+                'security' => 'cinghie\userextended\controllers\SecurityController',
+                'settings' => 'app\controllers\user\SettingsController'
+            ],
+
+            // Yii2 User Models Overrides
+            'modelMap' => [
+                'RegistrationForm' => 'app\models\RegistrationForm',
+                'Profile' => 'app\models\Profile',
+                'SettingsForm' => 'app\models\SettingsForm',
+                'User' => 'app\models\User',
+            ],
         ],
-        /**
-         * @link https://github.com/dektrium/yii2-rbac/blob/master/docs/installation.md
-         */
-        'rbac' => 'dektrium\rbac\RbacWebModule',
+        // Yii2 User Extended
+        'userextended' => [
+            'class' => 'cinghie\userextended\Module',
+//            'controllerMap' => [
+//                'items' => 'app\controllers\AdminController',
+//                'items' => 'app\controllers\SecurityController',
+//                'items' => 'app\controllers\SettingsController',
+//            ],
+//            'modelMap' => [
+//                'Account' => 'app\models\Account',
+//                'Assignment' => 'app\models\Assignment',
+//                'LoginForm' => 'app\models\LoginForm',
+//                'Permission' => 'app\models\Permission',
+//                'Profile' => 'app\models\Profile',
+//                'RegistrationForm' => 'app\models\RegistrationForm',
+//                'SettingsForm' => 'app\models\SettingsForm',
+//                'User' => 'app\models\User',
+//            ],
+            'avatarPath' => '@webroot/img/users/', // Path to your avatar files
+            'avatarURL' => '@web/img/users/', // Url to your avatar files
+            'defaultRole' => '', // example 'registered'
+            'avatar' => true,
+            'bio' => false,
+            'captcha' => true,
+            'birthday' => true,
+            'firstname' => true,
+            'gravatarEmail' => false,
+            'lastname' => true,
+            'location' => false,
+            'onlyEmail' => false,
+            'publicEmail' => false,
+            'signature' => true,
+            'templateLogin' => 'login_prestashop', // login or login_prestashop
+            'templateLogoURL' => '@web/logo.png', // Url to logo
+            'templateRegister' => '_two_column', // _one_column or _two_column
+            'terms' => true,
+            'website' => false,
+            'showTitles' => true, // Set false in adminLTE
+        ],
     ],
     'params' => $params,
 ];

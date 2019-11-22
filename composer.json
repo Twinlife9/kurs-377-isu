@@ -20,7 +20,9 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "dektrium/yii2-user": "^0.9.14",
-        "dektrium/yii2-rbac": "1.0.1"
+        "dektrium/yii2-rbac": "1.0.1",
+        "cinghie/yii2-traits": "@dev",
+        "cinghie/yii2-user-extended": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
